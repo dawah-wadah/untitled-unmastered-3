@@ -18,6 +18,7 @@ const getData = () => {
   return Promise.all([fetch('packages'), fetch('drones')])
   .then(res => {
     console.log(res);
+    return res;
   });
 };
 
