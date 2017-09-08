@@ -1,5 +1,6 @@
 import rp from 'request-promise-native';
 import Promise from 'es6-promise';
+import Location from '../lib/location.js';
 
 
 const options = (endpoint) => {
@@ -14,12 +15,17 @@ const options = (endpoint) => {
 
 const fetch = (item) => rp(options(item));
 
-const getData = () => {
-  return Promise.all([fetch('packages'), fetch('drones')])
-  .then(res => {
-    console.log(res);
-    return res;
-  });
+const formatDrone = data => {
+  let id = data.droneId;
+  let currentLocation = new Location({
+    latitude: data.location.latitude,
+    longitude: data.location.longitude} );
 };
+
+const getData = () => (
+  fetch('packages').then(res => {
+    console.log(res);
+  })
+);
 
 export default getData;
