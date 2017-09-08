@@ -17,7 +17,7 @@ module.exports = {
    fs: "empty"
   },
   output: {
-    path: path.resolve(__dirname, 'scripts'),
+    path: path.resolve(__dirname, 'lib'),
     filename: "server.js"
   },
   devtool: 'source-maps',
