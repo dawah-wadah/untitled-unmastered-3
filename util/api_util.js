@@ -6,9 +6,9 @@ import Drone from '../lib/drone.js';
 
 const options = (endpoint) => {
   return {
-    uri: `http://codetest.kube.getswift.com/${endpoint}`,
-    header: {
-      'User-Agent': 'Request-Promise'
+    uri: `http://codetest.kube.getswift.co/${endpoint}`,
+    headers: {
+        'User-Agent': 'Request-Promise'
     },
     json: true
   };
@@ -26,8 +26,9 @@ const formatDrone = data => {
     longitude: 144.964212
   });
   let packages = null;
+  let speed = 50;
   return new Drone({
-    id, currentLocation, homeLocation, packages
+    id, currentLocation, homeLocation, packages, speed
   });
 };
 
@@ -38,7 +39,9 @@ const formatDrones = droneData => (
 const getData = () => (
   fetch('drones').then(res => {
     let drones = formatDrones(res);
-    return {drones};
+    return {
+      drones
+    };
   })
 );
 
