@@ -26,7 +26,7 @@ const formatDrone = data => {
     latitude: -37.816656,
     longitude: 144.964212
   });
-  let packages = null;
+  let packages = formatPackages(data.packages);
   let speed = 50;
   return new Drone({
     id, currentLocation, homeLocation, packages, speed
@@ -62,11 +62,17 @@ const getData = () => (
   //   };
   // })
 
-  fetch('packages').then(res => {
-    let packages = formatPackages(res);
-    return {
-      packages
-    };
+  // fetch('packages').then(res => {
+  //   let packages = formatPackages(res);
+  //   return {
+  //     packages
+  //   };
+  // })
+
+  Promise.all([fetch('drones'), fetch('packages')]).then(res => {
+    let drones = formatDrones(res[0]);
+    let packages = formatPackages(res[1]);
+    return {drones, packages};
   })
 );
 
