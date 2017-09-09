@@ -2,6 +2,7 @@ import rp from 'request-promise-native';
 import Promise from 'es6-promise';
 import Location from '../lib/location.js';
 import Drone from '../lib/drone.js';
+import Package from '../lib/package.js';
 
 
 const options = (endpoint) => {
@@ -33,15 +34,15 @@ const formatDrone = data => {
 };
 const formatPackage = data => {
   let id = data.packageId;
-  let pickupLocation = new Location({
-    latitude: data.location.latitude,
-    longitude: data.location.longitude} );
   let destination = new Location({
+    latitude: data.destination.latitude,
+    longitude: data.destination.longitude} );
+  let pickupLocation = new Location({
     latitude: -37.816656,
     longitude: 144.964212
   });
   let deadline = data.deadline;
-  return new Drone({
+  return new Package({
     id, pickupLocation, destination, deadline
   });
 };
