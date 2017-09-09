@@ -55,20 +55,6 @@ const formatPackages = packageData => (
 );
 
 const getData = () => (
-  // fetch('drones').then(res => {
-  //   let drones = formatDrones(res);
-  //   return {
-  //     drones
-  //   };
-  // })
-
-  // fetch('packages').then(res => {
-  //   let packages = formatPackages(res);
-  //   return {
-  //     packages
-  //   };
-  // })
-
   Promise.all([fetch('drones'), fetch('packages')]).then(res => {
     let drones = formatDrones(res[0]);
     let packages = formatPackages(res[1]);
