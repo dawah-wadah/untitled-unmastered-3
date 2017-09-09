@@ -2,50 +2,31 @@ import Drone from '../lib/drone.js';
 import Package from '../lib/package.js';
 
 const dispatcher = (foo) => {
-  // const orderedDrones = Drone.prototype.soonestDrones(foo.drones);
-  // const orderedDrones = foo.drones.map(drone => drone.availableWhen())
-  //   .sort((a,b) => a - b);
+  const orderedDrones = Drone.prototype.soonestDrones(foo.drones);
   const orderedPackages = Package.prototype.soonestPackages(foo.packages);
-  // const unassignedPackages = [];
-  // const assignedPackages = [];
+  const unassignedPackages = [];
+  const assignedPackages = [];
 
-  // orderedDrones.forEach( drone => {
-  //   let parcel;
-  //   if (orderedPackages.length) {
-  //     parcel = orderedPackages.shift();
-  //     if (drone.undeliverable(parcel)) {
-  //       unassignedPackages.push({packageId: parcel.id});
-  //       parcel = orderedPackages.shift();
-  //       if (!parcel) return;
-  //     }
-  //     assignedPackages.push({droneId: drone.id, packageId: parcel.id});
-  //   } else {
-  //     return;
-  //   }
-  // });
-//   orderedDrones.forEach(drone => {
-//   let pack = orderedPackages.shift();
-//   if (!pack) return;
-//   while (drone.undeliverable(pack)){
-//     unassignedPackages.push(pack.id);
-//     pack = orderedPackages.shift();
-//     if (!pack) return;
-//   }
-//   assignedPackages.push({droneID: drone.id, packageID: pack.id});
-// });
-//
-//   orderedPackages.map((parcel) => {
-//     unassignedPackages.push({packageId: parcel.id});
-//   });
+  orderedDrones.forEach( drone => {
+    let parcel;
+    if (orderedPackages.length) {
+      parcel = orderedPackages.shift();
+      if (drone.undeliverable(parcel)) {
+        unassignedPackages.push(parcel.id);
+        parcel = orderedPackages.shift();
+        if (!parcel) return;
+      }
+      assignedPackages.push({droneId: drone.id, packageId: parcel.id});
+    } else {
+      return;
+    }
+  });
 
-  // return {assignedPackages, unassignedPackages};
-  // return { orderedDrones };
-  // console.log(foo.packages);
-  // return foo.packages;
-  // return foo.drones;
-  // return orderedDrones;
-  return orderedPackages;
+  const leftoverPackIDS = orderedPackages.forEach(parcel =>{
+    unassignedPackages.push(parcel.id);
+  } );
 
+  return {assignedPackages, unassignedPackages};
 };
 
 export default dispatcher;
