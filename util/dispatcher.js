@@ -2,10 +2,10 @@ import Drone from '../lib/drone.js';
 import Package from '../lib/package.js';
 
 const dispatcher = (foo) => {
-  // const orderedDrones = Drone.soonestDrones(foo.drones);
-  const orderedDrones = foo.drones.map(drone => drone.availableWhen())
-    .sort((a,b) => a - b);
-  // const orderedPackages = Package.soonestPackages(foo.packages);
+  // const orderedDrones = Drone.prototype.soonestDrones(foo.drones);
+  // const orderedDrones = foo.drones.map(drone => drone.availableWhen())
+  //   .sort((a,b) => a - b);
+  const orderedPackages = Package.prototype.soonestPackages(foo.packages);
   // const unassignedPackages = [];
   // const assignedPackages = [];
 
@@ -43,7 +43,8 @@ const dispatcher = (foo) => {
   // console.log(foo.packages);
   // return foo.packages;
   // return foo.drones;
-  return orderedDrones;
+  // return orderedDrones;
+  return orderedPackages;
 
 };
 
