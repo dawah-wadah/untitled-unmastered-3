@@ -31,16 +31,40 @@ const formatDrone = data => {
     id, currentLocation, homeLocation, packages, speed
   });
 };
+const formatPackage = data => {
+  let id = data.packageId;
+  let pickupLocation = new Location({
+    latitude: data.location.latitude,
+    longitude: data.location.longitude} );
+  let destination = new Location({
+    latitude: -37.816656,
+    longitude: 144.964212
+  });
+  let deadline = data.deadline;
+  return new Drone({
+    id, pickupLocation, destination, deadline
+  });
+};
 
 const formatDrones = droneData => (
   droneData.map(drone => formatDrone(drone))
 );
+const formatPackages = packageData => (
+  packageData.map(foo => formatPackage(foo))
+);
 
 const getData = () => (
-  fetch('drones').then(res => {
-    let drones = formatDrones(res);
+  // fetch('drones').then(res => {
+  //   let drones = formatDrones(res);
+  //   return {
+  //     drones
+  //   };
+  // })
+
+  fetch('packages').then(res => {
+    let packages = formatPackages(res);
     return {
-      drones
+      packages
     };
   })
 );
